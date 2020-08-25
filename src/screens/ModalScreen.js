@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -9,6 +9,15 @@ import {
   TextInput,
 } from 'react-native';
 import Icon from 'react-native-ionicons';
+import {useDispatch} from 'react-redux';
+import {addItem} from '../redux/reducer';
+
+const [value, setValue] = useState('');
+const dispatch = useDispatch();
+const onSaveNote = (value) => {
+  dispatch(addItem(value));
+  navigation.navigate('List');
+};
 
 function ModalScreen({navigation}) {
   return (
@@ -53,7 +62,7 @@ function ModalScreen({navigation}) {
               justifyContent: 'center',
               borderRadius: 5,
             }}
-            onPress={() => navigation.navigate('List')}>
+            onPress={() => onSaveNote(value)}>
             <Icon
               ios="ios-arrow-dropright-circle"
               android="md--arrow-dropright-circle"

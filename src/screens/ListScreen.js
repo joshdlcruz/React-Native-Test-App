@@ -6,11 +6,14 @@ import {
   Text,
   View,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import Icon from 'react-native-ionicons';
 import Header from '../components/Header';
+import {useSelector} from 'react-redux';
 
 function ListView() {
+  const listItems = useSelector((state) => state.itemList);
   return (
     <View
       style={{
@@ -21,7 +24,23 @@ function ListView() {
         paddingHorizontal: 20,
         paddingVertical: 20,
       }}>
-      <Text>Here goes list items</Text>
+      {listItems.length !== 0 ? (
+        <FlatList
+          data={listItems}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({item}) => (
+            <View style={styles.listItemContainer}>
+              <View style={styles.listItemMetaContainer}>
+                <Text style={styles.itemTitle} numberOfLines={1}>
+                  {item.name}
+                </Text>
+              </View>
+            </View>
+          )}
+        />
+      ) : (
+        <Text style={{fontSize: 30}}>You list is empty :'(</Text>
+      )}
     </View>
   );
 }
