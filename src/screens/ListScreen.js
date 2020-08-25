@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   StyleSheet,
@@ -7,18 +8,40 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-ionicons';
+import Header from '../components/Header';
+
+function ListView() {
+  return (
+    <View
+      style={{
+        backgroundColor: 'white',
+        flex: 1,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+      }}>
+      <Text>Here goes list items</Text>
+    </View>
+  );
+}
 
 function ListScreen({navigation}) {
   return (
-    <View style={styles.container}>
-      <View style={styles.fabContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Modal')}
-          style={styles.fabButton}>
-          <Icon ios="ios-add" android="md-add" color="#fff" size={70} />
-        </TouchableOpacity>
+    <>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.container}>
+        <Header title={'List'} />
+        <ListView />
+        <View style={styles.fabContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Modal')}
+            style={styles.fabButton}>
+            <Icon ios="ios-add" android="md-add" color="#fff" size={70} />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
