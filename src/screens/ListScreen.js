@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   StyleSheet,
@@ -9,11 +8,16 @@ import {
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-ionicons';
+import {useSelector, useDispatch} from 'react-redux';
+import {removeItem} from '../redux/reducer';
 import Header from '../components/Header';
-import {useSelector} from 'react-redux';
 
 function ListView() {
   const listItems = useSelector((state) => state.itemList);
+  console.log({listItems});
+
+  const dispatch = useDispatch();
+
   return (
     <View
       style={{
@@ -30,11 +34,19 @@ function ListView() {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
             <View style={styles.listItemContainer}>
-              <View style={styles.listItemMetaContainer}>
-                <Text style={styles.itemTitle} numberOfLines={1}>
-                  {item.name}
-                </Text>
-              </View>
+              <Text style={styles.itemTitle} numberOfLines={1}>
+                {item.name}
+              </Text>
+              <TouchableOpacity
+                onPress={() => dispatch(removeItem(item.id))}
+                style={styles.button}>
+                <Icon
+                  ios="ios-trash"
+                  android="md-trash"
+                  color="#fff"
+                  size={20}
+                />
+              </TouchableOpacity>
             </View>
           )}
         />
@@ -63,7 +75,6 @@ function ListScreen({navigation}) {
     </>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -83,6 +94,25 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  listItemContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingRight: 5,
+    justifyContent: 'space-between',
+    width: '100%',
+    borderBottomWidth: 0.25,
+  },
+  itemTitle: {
+    fontSize: 22,
+    fontWeight: '400',
+  },
+  button: {
+    borderRadius: 8,
+    backgroundColor: '#ff333390',
+    padding: 5,
   },
 });
 export default ListScreen;

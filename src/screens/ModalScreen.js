@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -12,14 +12,14 @@ import Icon from 'react-native-ionicons';
 import {useDispatch} from 'react-redux';
 import {addItem} from '../redux/reducer';
 
-const [value, setValue] = useState('');
-const dispatch = useDispatch();
-const onSaveNote = (value) => {
-  dispatch(addItem(value));
-  navigation.navigate('List');
-};
-
 function ModalScreen({navigation}) {
+  const [value, setValue] = useState('');
+  const dispatch = useDispatch();
+  const onSaveNote = (value) => {
+    dispatch(addItem(value));
+    navigation.navigate('List');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
